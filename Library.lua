@@ -499,10 +499,18 @@ local function IsClickInput(Input: InputObject)
 end
 local function Round(Number, Factor)
 	if Factor == 0 then
-	    return math.floor(Number)
+		return Number
 	end
-	return Factor
+
+	local Result = math.floor(Number / Factor + 0.5) * Factor
+
+	-- ปัดเศษทศนิยมให้สั้นลง ป้องกัน 0.0000001
+	local DecimalPlaces = tostring(Factor):match("%.0*(%d+)$")
+	local Precision = DecimalPlaces and #DecimalPlaces or 0
+
+	return tonumber(string.format("%." .. Precision .. "f", Result))
 end
+
 
 local function GetTableSize(Table: { [any]: any })
 	local Size = 0
