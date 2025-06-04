@@ -498,11 +498,10 @@ local function IsClickInput(Input: InputObject)
 		and Input.UserInputState == Enum.UserInputState.Begin
 end
 local function Round(Number, Factor)
-	local Result = math.floor(Number / Factor + (math.sign(Number) * 0.5)) * Factor
-	if Result < 0 then
-		Result = Result + Factor
+	if Factor == 0 then
+	    return math.floor(Number)
 	end
-	return Result
+	return Factor
 end
 
 local function GetTableSize(Table: { [any]: any })
