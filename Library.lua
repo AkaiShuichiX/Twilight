@@ -124,7 +124,7 @@ local Templates = {
 	},
 	Input = {
 		ClearOnFocus = false,
-		Placeholder = "Placeholder",
+		Placeholder = "         ",
 		Value = "",
 	},
 	Dropdown = {
