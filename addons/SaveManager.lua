@@ -228,6 +228,21 @@ function SaveManager:RefreshConfigList()
 end
 
 --// Auto Load: Save, Load, Delete \\--
+function SaveManager:GetAutoloadConfig()
+	local filePath = self.Folder .. "/settings/autoload.txt"
+
+	if isfile(filePath) then
+		local success, content = pcall(readfile, filePath)
+		if success then
+			return content
+		else
+			return nil, "read file error"
+		end
+	else
+		return nil, "autoload config not found"
+	end
+end
+
 function SaveManager:SaveAutoloadConfig(name)
 	local file = self.Folder .. "/settings/autoload.txt"
 
@@ -413,9 +428,14 @@ function SaveManager:CreateSaveManager(Section)
 
 	Section:CreateDivider()
 
+	-- เพิ่มการอ่านค่า autoload config มาใส่ label ตอนเริ่มต้น
+	local currentAutoload = self:GetAutoloadConfig()
+	local autoloadText = currentAutoload and ("Current autoload config: " .. currentAutoload) or "Current autoload config: none"
+
 	local AutoloadLabel = Section:CreateLabel("AutoloadLabel", {
-		Text = "Current autoload config: none",
+		Text = autoloadText,
 	})
+
 	Section:CreateButton("SaveManager_AutoloadConfig", {
 		Title = "Set as autoload",
 		Callback = function()
