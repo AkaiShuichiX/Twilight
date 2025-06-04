@@ -504,7 +504,6 @@ local function Round(Number, Factor)
 
 	local Result = math.floor(Number / Factor + 0.5) * Factor
 
-	-- ปัดเศษทศนิยมให้สั้นลง ป้องกัน 0.0000001
 	local DecimalPlaces = tostring(Factor):match("%.0*(%d+)$")
 	local Precision = DecimalPlaces and #DecimalPlaces or 0
 
